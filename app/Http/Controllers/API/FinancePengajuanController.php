@@ -48,4 +48,15 @@ class FinancePengajuanController extends Controller
         $this->reject($id, $request->input('reason'), 'finance');
         return response()->json(['message' => 'Pengajuan rejected successfully'], 200);
     }
+
+
+
+    public function history()
+    {
+        $financeId = auth()->user()->id;
+        $pengajuans = Pengajuan::where('approved_by_finance', $financeId)
+            ->with('user', 'approvedByFinance', 'approvedByManager')
+            ->get();
+        return response()->json($pengajuans, 200);
+    }
 }

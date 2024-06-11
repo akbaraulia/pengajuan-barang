@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth', 'role:manager']], function () {
     Route::get('manager/pengajuans', [ManagerPengajuanController::class, 'index']);
     Route::post('manager/pengajuans/{id}/approve', [ManagerPengajuanController::class, 'approvePengajuan']);
     Route::post('manager/pengajuans/{id}/reject', [ManagerPengajuanController::class, 'rejectPengajuan']);
+    Route::get('manager/pengajuans/history', [ManagerPengajuanController::class, 'history']);
+
+
 });
 
 
@@ -32,4 +35,6 @@ Route::group(['middleware' => ['auth', 'role:finance']], function () {
     Route::get('finance/pengajuans', [FinancePengajuanController::class, 'index']);
     Route::post('finance/pengajuans/{id}/approve', [FinancePengajuanController::class, 'approvePengajuan']);
     Route::post('finance/pengajuans/{id}/reject', [FinancePengajuanController::class, 'rejectPengajuan']);
+    Route::get('finance/pengajuans/history', [FinancePengajuanController::class, 'history']);
+
 });

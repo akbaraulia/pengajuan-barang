@@ -17,7 +17,9 @@ class Pengajuan extends Model
         'status',
         'rejection_reason',
         'proof_of_transfer',
-        'total_price'
+        'total_price',
+        'approved_by_manager',
+        'approved_by_finance',
     ];
 
     public function user()
@@ -28,6 +30,15 @@ class Pengajuan extends Model
     public function getProofOfTransferUrlAttribute()
     {
         return asset('storage/' . $this->proof_of_transfer);
+    }
+    public function approvedByManager()
+    {
+        return $this->belongsTo(User::class, 'approved_by_manager');
+    }
+
+    public function approvedByFinance()
+    {
+        return $this->belongsTo(User::class, 'approved_by_finance');
     }
 
 }

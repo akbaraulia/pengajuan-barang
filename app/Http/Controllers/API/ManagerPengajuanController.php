@@ -30,4 +30,15 @@ class ManagerPengajuanController extends Controller
         $this->reject($id, $request->input('reason'), 'manager');
         return response()->json(['message' => 'Pengajuan rejected successfully'], 200);
     }
+
+
+
+    public function history()
+    {
+        $managerId = auth()->user()->id;
+        $pengajuans = Pengajuan::where('approved_by_manager', $managerId)
+            ->with('user', 'approvedByManager', 'approvedByFinance')
+            ->get();
+        return response()->json($pengajuans, 200);
+    }
 }

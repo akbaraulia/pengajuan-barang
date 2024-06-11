@@ -12,17 +12,19 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('pengajuans', function (Blueprint $table) {
-            $table->string('rejected_by')->nullable();
+            $table->unsignedBigInteger('rejected_by')->nullable();
+            $table->foreign('rejected_by')->references('id')->on('users');
         });
     }
 
     /**
-     * Reverse the migrations.
+         * Reverse the migrations.
      */
     public function down(): void
     {
         Schema::table('pengajuans', function (Blueprint $table) {
-            //
+            $table->dropForeign(['rejected_by']);
+            $table->dropColumn('rejected_by');
         });
     }
 };
